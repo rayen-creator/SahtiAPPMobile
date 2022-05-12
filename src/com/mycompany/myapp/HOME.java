@@ -5,6 +5,8 @@
  */
 package com.mycompany.myapp;
 
+import GUI.Homeformee;
+import GUI.back.AccueilBack;
 import com.mycompany.myapp.Login;
 import com.mycompany.myapp.Login;
 import com.mycompany.myapp.SignupClient;
@@ -26,6 +28,10 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
+//import gui.Homeformee;
+
+//import gui.Homeformee;
+//import gui.back.AccueilBack;
 import java.io.IOException;
 
 /**
@@ -73,15 +79,19 @@ public class HOME extends com.codename1.ui.Form {
         add(new Label("Weclome to SAHTI APP "));
         Button login = new Button("Login");
         Button signupp = new Button("Signup");
-        Button a =new Button("adminlist");
+        Button a = new Button("adminlist");
         Button s = new Button("list");
+        Button sss = new Button("coach");
+        Button aa = new Button("nutri");
 
         s.addActionListener(e -> new SignupMainpage().show());
         login.addActionListener(e -> new Login(current).show());
         signupp.addActionListener(e -> new SignupMainpage().show());
         a.addActionListener(e -> new AdminUserListForm().show());
+        sss.addActionListener(e -> new Homeformee().show());
+        aa.addActionListener(e -> new AccueilBack().show());
 
-        addAll(ivimg, login, signupp,a);
+        addAll(ivimg, login, signupp, a, sss,aa);
 
 //        current.add(login);
 //        current.add(signupclient);
@@ -93,7 +103,7 @@ public class HOME extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

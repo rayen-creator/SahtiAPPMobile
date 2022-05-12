@@ -5,6 +5,8 @@
  */
 package com.mycompany.myapp;
 
+import GUI.HomeForm;
+import GUI.HomeFormProduit;
 import com.codename1.ui.Button;
 import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Dialog;
@@ -25,6 +27,7 @@ import services.ListAdminPanel;
  * @author Rayen
  */
 public class AdminUserListForm extends com.codename1.ui.Form {
+
     Form current = new Form("Admin panel", new FlowLayout(CENTER, CENTER));
 
     public AdminUserListForm() {
@@ -34,18 +37,19 @@ public class AdminUserListForm extends com.codename1.ui.Form {
         setLayout(BoxLayout.y());
         add(new Label("********************Client's list************ "));
         add(new Label("____________________________________________ "));
-
-        current.getToolbar().addCommandToSideMenu("Login", null, new ActionListener() {
+        HomeForm h = new HomeForm();
+        HomeFormProduit hp=new HomeFormProduit();
+        current.getToolbar().addCommandToSideMenu("Manage feedbacks", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-//                l.show();
+                h.show();
             }
         ;
         });
-        current.getToolbar().addCommandToSideMenu("Sign up", null, new ActionListener() {
+        current.getToolbar().addCommandToSideMenu("Products", null, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-//                signup.showBack();
+                hp.show();
             }
         });
         //toolbar
@@ -124,7 +128,7 @@ public class AdminUserListForm extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-//////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
