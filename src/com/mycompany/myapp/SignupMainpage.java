@@ -32,7 +32,7 @@ public class SignupMainpage extends com.codename1.ui.Form {
         current = this; //Back 
         setTitle("Sign UP");
 
-        Login l = new Login(current);
+        Login l = new Login();
         Container cnimg = new Container(BoxLayout.xRight());
         Container cnbtn = new Container(BoxLayout.x());
 
@@ -74,7 +74,7 @@ public class SignupMainpage extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+//////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

@@ -23,24 +23,24 @@ import utils.Statics;
  * @author Rayen
  */
 public class ListAdminPanel {
-    
+
     public ArrayList<Client> clients;
     public Resources res;
     public static ListAdminPanel instance = null;
     public boolean resultOK;
     private ConnectionRequest req;
-    
+
     public ListAdminPanel() {
         req = new ConnectionRequest();
     }
-    
+
     public static ListAdminPanel getInstance() {
         if (instance == null) {
             instance = new ListAdminPanel();
         }
         return instance;
     }
-    
+
     public ArrayList<Client> Allclients() {
         req = new ConnectionRequest();
         ArrayList<Client> result = new ArrayList<>();
@@ -54,9 +54,9 @@ public class ListAdminPanel {
                 jsonp = new JSONParser();
                 try {
                     Map<String, Object> clients = jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
-                    
+
                     List<Map<String, Object>> listOfMaps = (List<Map<String, Object>>) clients.get("root");
-                    
+
                     for (Map<String, Object> obj : listOfMaps) {
                         Client re = new Client();
                         String id = obj.get("id").toString();
@@ -66,9 +66,10 @@ public class ListAdminPanel {
                         String addr = obj.get("adresse").toString();
 //                        String birthday = obj.get("datenaiss").toString();
                         String blocked = obj.get("isblocked").toString();
-                        float idclient = Float.parseFloat(obj.get("id").toString());
-                        re.setId((int)idclient);
                         
+                        float idclient = Float.parseFloat(obj.get("id").toString());
+                        re.setId((int) idclient);
+
                         if (obj.get("nom") == null) {
                             re.setNom("null");
                         }
@@ -107,10 +108,10 @@ public class ListAdminPanel {
                         }
                         result.add(re);
                     }
-                    
+
                 }
                 catch (Exception ex) {
-                    
+
                     ex.printStackTrace();
                 }
             }
@@ -120,4 +121,56 @@ public class ListAdminPanel {
                 .addToQueueAndWait(req);
         return result;
     }
+
+    public boolean remove(int id) {
+        String url = Statics.BASE_URL + "admin/deleteclientjson?id=" + id;
+        req.setUrl(url);
+
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+                System.out.println("Client deleted successfully ");
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
+    public boolean ban(int id) {
+
+        String url = Statics.BASE_URL + "admin/banclientjson?id=" + id;
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+                System.out.println("Client banned successfully ");
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
+    public boolean unban(int id) {
+
+        String url = Statics.BASE_URL + "admin/unbanclientjson?id=" + id; //création de l'URL  TODO
+        req.setUrl(url);// Insertion de l'URL de notre demande de connexion
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
+                req.removeResponseListener(this);
+                System.out.println("Client unbanned successfully ");
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+    }
+
 }

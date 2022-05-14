@@ -35,7 +35,7 @@ public class Login extends com.codename1.ui.Form {
 
     Form current;
 
-    public Login(Form previous) {
+    public Login() {
         current = this; //Back 
 
         setTitle("Login");
@@ -68,16 +68,20 @@ public class Login extends com.codename1.ui.Form {
 
                     if (Signin.getInstance().signinAdmin(a) == true) {
                         Dialog.show("Success", "Welcome " + tfLogin.getText(), new Command("OK"));
+                        AdminPannelHOME admin = new AdminPannelHOME();
+                        admin.show();
                     }
                     else if (Signin.getInstance().signinClient(c) == true) {
                         Dialog.show("Success", "Welcome " + tfLogin.getText(), new Command("OK"));
-                    }
-                    else if ((Signin.getInstance().signinClient(c) == false) && (Signin.getInstance().clientstate(c) == true)) {
-                        Dialog.show("Opps :(", "You're banned Contact us for more infos.", new Command("OK"));
+                        ClientHOME ch = new ClientHOME();
+                        ch.show();
                     }
                     else {
-                        Dialog.show("Error", "Login failed please try again", new Command("OK"));
+                        Dialog.show("Login failed ", " Either your banned or password incorrect .. please try again", new Command("OK"));
                     }
+//    else {
+//                        Dialog.show("Error", "Login failed please try again", new Command("OK"));
+//                    }
                 }
                 else {
                     ToastBar.showErrorMessage("Fill all blanks", 20);
@@ -100,7 +104,7 @@ public class Login extends com.codename1.ui.Form {
 
         addAll(cn);
 
-   getToolbar()
+        getToolbar()
                 .addMaterialCommandToLeftBar("HOME", FontImage.MATERIAL_HOME, e
                         -> new HOME().show());
 
@@ -110,7 +114,7 @@ public class Login extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////////////////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

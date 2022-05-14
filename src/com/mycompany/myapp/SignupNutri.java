@@ -48,18 +48,22 @@ public class SignupNutri extends com.codename1.ui.Form {
 
                 try {
                     if ((nom.getText() != "") && (prenom.getText() != "") && (email.getText() != "") && (passwd.getText() != "") && (address.getText() != "") && (verifypassword.getText() != "")
-                           &&  (bio.getText() != "") && (cert.getText() != "")) {
+                            && (bio.getText() != "") && (cert.getText() != "")) {
+                        
                         if (passwd.getText().equals(verifypassword.getText())) {
+                            
                             Nutritioniste n = new Nutritioniste(nom.getText(), prenom.getText(), email.getText(), passwd.getText(), address.getText(), bio.getText(), cert.getText());
                             if (Signup.getInstance().Signupnutri(n)) {
                                 Dialog.show("Success", "Account created successfully ", new Command("OK"));
+                                Login l = new Login();
+                                l.show();
                             }
                             else {
                                 Dialog.show("ERROR", "Server error", new Command("OK"));
                             }
                         }
                         else {
-                            Dialog.show("ERROR", "Make sure of your password verification", new Command("OK") );
+                            Dialog.show("ERROR", "Make sure of your password verification", new Command("OK"));
                         }
                     }
                     else {
@@ -73,7 +77,7 @@ public class SignupNutri extends com.codename1.ui.Form {
             }
         });
 
-        addAll(nom, prenom, email, passwd,verifypassword, address, bio, cert, btn);
+        addAll(nom, prenom, email, passwd, verifypassword, address, bio, cert, btn);
         getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e -> previous.showBack());
 
     }
@@ -82,7 +86,7 @@ public class SignupNutri extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-//////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

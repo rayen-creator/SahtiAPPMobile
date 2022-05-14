@@ -50,13 +50,15 @@ public class SignupCoach extends com.codename1.ui.Form {
                             Entraineur e = new Entraineur(nom.getText(), prenom.getText(), email.getText(), passwd.getText(), address.getText(), bio.getText(), cert.getText());
                             if (Signup.getInstance().Signupcoach(e)) {
                                 Dialog.show("Success", "Account created successfully ", new Command("OK"));
+                                Login l = new Login();
+                                l.show();
                             }
                             else {
                                 Dialog.show("ERROR", "Server error", new Command("OK"));
                             }
                         }
                         else {
-                            Dialog.show("ERROR", "Make sure of your password verification", new Command("OK") );
+                            Dialog.show("ERROR", "Make sure of your password verification", new Command("OK"));
                         }
                     }
                     else {
@@ -78,7 +80,7 @@ public class SignupCoach extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-//////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

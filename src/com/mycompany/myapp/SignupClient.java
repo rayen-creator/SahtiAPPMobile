@@ -61,7 +61,7 @@ public class SignupClient extends com.codename1.ui.Form {
                             Client c = new Client(nom.getText(), prenom.getText(), email.getText(), passwd.getText(), address.getText(), birthday.getText());
                             if (Signup.getInstance().Signupclient(c)) {
                                 Dialog.show("Success", "Account created successfully ", new Command("OK"));
-                                HOME l = new HOME();
+                                Login l = new Login();
                                 l.show();
                             }
                             else {
@@ -91,7 +91,7 @@ public class SignupClient extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-//////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

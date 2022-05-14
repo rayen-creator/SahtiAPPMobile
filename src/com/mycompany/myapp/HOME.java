@@ -48,16 +48,16 @@ public class HOME extends com.codename1.ui.Form {
         setTitle("Welcome");
         setLayout(BoxLayout.y());
         //toolbar
-        Login l = new Login(current);
+        Login l = new Login();
         SignupMainpage signup = new SignupMainpage();
 
-        current.getToolbar().addCommandToSideMenu("Login", null, new ActionListener() {
+        current.getToolbar().addMaterialCommandToSideMenu("Login", FontImage.MATERIAL_LOGIN, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 l.show();
             }
         });
-        current.getToolbar().addCommandToSideMenu("Sign up", null, new ActionListener() {
+        current.getToolbar().addMaterialCommandToSideMenu("Sign up", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 signup.showBack();
@@ -85,9 +85,9 @@ public class HOME extends com.codename1.ui.Form {
         Button aa = new Button("nutri");
 
         s.addActionListener(e -> new SignupMainpage().show());
-        login.addActionListener(e -> new Login(current).show());
+        login.addActionListener(e -> new Login().show());
         signupp.addActionListener(e -> new SignupMainpage().show());
-        a.addActionListener(e -> new AdminUserListForm().show());
+        a.addActionListener(e -> new AdminPannelHOME().show());
         sss.addActionListener(e -> new Homeformee().show());
         aa.addActionListener(e -> new AccueilBack().show());
 
@@ -103,7 +103,7 @@ public class HOME extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

@@ -10,6 +10,7 @@ import GUI.HomeFormProduit;
 import com.codename1.ui.Button;
 import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
@@ -34,24 +35,40 @@ public class AdminUserListForm extends com.codename1.ui.Form {
         current = this; //Back 
 
         setTitle("Admin Panel");
+
+        getToolbar()
+                .addMaterialCommandToRightBar("Logout", FontImage.MATERIAL_LOGOUT, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        Login l = new Login();
+                        Dialog.show("Logout", "Logging out now  ! ", "OK", null);
+
+                        l.show();
+                    }
+                ;
+        });
+                     getToolbar()
+                .addMaterialCommandToLeftBar("Back", FontImage.MATERIAL_ARROW_BACK, e -> new AdminPannelHOME().show());     
+     
         setLayout(BoxLayout.y());
+
         add(new Label("********************Client's list************ "));
         add(new Label("____________________________________________ "));
-        HomeForm h = new HomeForm();
-        HomeFormProduit hp=new HomeFormProduit();
-        current.getToolbar().addCommandToSideMenu("Manage feedbacks", null, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                h.show();
-            }
-        ;
-        });
-        current.getToolbar().addCommandToSideMenu("Products", null, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                hp.show();
-            }
-        });
+//        HomeForm h = new HomeForm();
+//        HomeFormProduit hp = new HomeFormProduit();
+//        current.getToolbar().addCommandToSideMenu("Manage feedbacks", null, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                h.show();
+//            }
+//        ;
+//        });
+//        current.getToolbar().addCommandToSideMenu("Products", null, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                hp.show();
+//            }
+//        });
         //toolbar
         ArrayList<Client> List = new ArrayList<Client>();
         List = ListAdminPanel.getInstance().Allclients();
@@ -73,36 +90,28 @@ public class AdminUserListForm extends com.codename1.ui.Form {
         Label line = new Label("____________________________________________");
         Button remove = new Button("remove");
         remove.addActionListener(l -> {
-//            Update_userForm a = new Update_userForm(theme, usr.getId());
-//            a.show();
-            Dialog.show("success", "Attempt to delete :" + c.getId(), "OK", null);
-
+            if (ListAdminPanel.getInstance().remove(c.getId())) {
+                Dialog.show("success", "Delete was a success :" + c.getId(), "OK", null);
+                AdminUserListForm a = new AdminUserListForm();
+                a.show();
+            }
         });
-//        Button update=new Button("update");
-//        update.addActionListener(l->{
-////        Update_userForm a=new Update_userForm(theme,usr.getId());
-////        a.show();
-//        });
-//        Button ban=new Button("ban");
-//              ban.addActionListener(l->{
-//              if(UserService.getInstance().ban(usr.getId()))
-//                      {
-//                          Dialog.show("Banned","you have banned :"+usr.getUsername(), "OK",null);
-//                          UserListAdmin a=new UserListAdmin(theme);
-//                          a.show();
-//                      }
-//              });
-//        Button unban=new Button("unban");
-//            unban.addActionListener(l->{
-//              if(UserService.getInstance().unban(usr.getId()))
-//                      {
-//                          Dialog.show("UnBanned","you have Unbanned :"+usr.getUsername(), "OK",null);
-//                          UserListAdmin a=new UserListAdmin(theme);
-//                          a.show();
-//                      }
-//              });
-//        
-//        
+        Button Ban = new Button("Ban");
+        Ban.addActionListener(l -> {
+            if (ListAdminPanel.getInstance().ban(c.getId())) {
+                Dialog.show("success", "you have banned  :" + c.getEmail(), "OK", null);
+                AdminUserListForm a = new AdminUserListForm();
+                a.show();
+            }
+        });
+        Button Unban = new Button("Unban");
+        Unban.addActionListener(l -> {
+            if (ListAdminPanel.getInstance().unban(c.getId())) {
+                Dialog.show("success", "you have unbanned  :" + c.getEmail(), "OK", null);
+                AdminUserListForm a = new AdminUserListForm();
+                a.show();
+            }
+        });
 
         add(nom);
         add(prenom);
@@ -111,6 +120,8 @@ public class AdminUserListForm extends com.codename1.ui.Form {
         add(Birthday);
         add(isblocked);
         add(remove);
+        add(Ban);
+        add(Unban);
 
 //        if(usr.getIsbanned().equals("false"))
 //        {
@@ -128,7 +139,7 @@ public class AdminUserListForm extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+//////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

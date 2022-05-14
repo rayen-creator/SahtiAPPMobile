@@ -67,7 +67,7 @@ public class Forgetpwd extends com.codename1.ui.Form {
                     if (mail.getText() != "") {
                         if (resetpwd.getInstance().Forgetpwd(mail.getText())) {
                             Dialog.show("Success", "Check your email, to follow Reset instructions", "OK", null);
-                            Login a = new Login(previous);
+                            Login a = new Login();
                             a.showBack();
                         }
                         else {
@@ -96,7 +96,7 @@ public class Forgetpwd extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-//////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
