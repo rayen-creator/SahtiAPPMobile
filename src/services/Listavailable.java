@@ -73,13 +73,13 @@ public class Listavailable {
                     e.setAdresse("null");
                 }
                 else {
-                e.setAdresse(obj.get("adresse").toString());
+                    e.setAdresse(obj.get("adresse").toString());
                 }
                 if (obj.get("certification") == null) {
                     e.setNom("null");
                 }
                 else {
-                e.setCertification(obj.get("certification").toString());
+                    e.setCertification(obj.get("certification").toString());
                 }
 
                 coach.add(e);
@@ -107,5 +107,72 @@ public class Listavailable {
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
         return coach;
+    }
+
+    //**********************************************************************
+    public ArrayList<Nutritioniste> parseTasks2(String jsonText) {
+        try {
+            nutri = new ArrayList<>();
+            JSONParser j = new JSONParser();
+            Map<String, Object> ListJson
+                    = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) ListJson.get("root");
+
+            for (Map<String, Object> obj : list) {
+                Nutritioniste n = new Nutritioniste();
+
+                if (obj.get("nom") == null) {
+                    n.setNom("null");
+                }
+                else {
+                    n.setNom(obj.get("nom").toString());
+                }
+
+                if (obj.get("prenom") == null) {
+                    n.setPrenom("null");
+                }
+                else {
+                    n.setPrenom(obj.get("prenom").toString());
+                }
+
+                if (obj.get("adresse") == null) {
+                    n.setAdresse("null");
+                }
+                else {
+                    n.setAdresse(obj.get("adresse").toString());
+                }
+                if (obj.get("certification") == null) {
+                    n.setNom("null");
+                }
+                else {
+                    n.setCertification(obj.get("certification").toString());
+                }
+
+                nutri.add(n);
+            }
+
+        }
+        catch (IOException ex) {
+
+        }
+        return nutri;
+    }
+
+    public ArrayList<Nutritioniste> getAllnutri() {
+        req = new ConnectionRequest();
+        String url = Statics.BASE_URL + "availablenutri";
+
+        req.setUrl(url);
+        req.setPost(false);
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                nutri = parseTasks2(new String(req.getResponseData()));
+                req.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return nutri;
     }
 }

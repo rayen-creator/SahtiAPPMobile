@@ -26,7 +26,14 @@ public class Nutritioniste {
     public Nutritioniste() {
     }
 
-    public Nutritioniste(String nom, String prenom, String email, String passwd,String adresse, String bio, String certification, String img) {
+    public Nutritioniste(String email, String passwd) {
+
+        this.email = email;
+        this.passwd = passwd;
+
+    }
+
+    public Nutritioniste(String nom, String prenom, String email, String passwd, String adresse, String bio, String certification, String img) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -36,8 +43,8 @@ public class Nutritioniste {
         this.certification = certification;
         this.img = img;
     }
-    
-       public Nutritioniste(String nom, String prenom, String email, String passwd,String adresse, String bio, String certification) {
+
+    public Nutritioniste(String nom, String prenom, String email, String passwd, String adresse, String bio, String certification) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -47,9 +54,7 @@ public class Nutritioniste {
         this.certification = certification;
     }
 
-
-
-    public Nutritioniste(String nom, String prenom, String email, String passwd, String adresse, String bio, String certification, String img, Boolean IsBlocked,int IsMyClient) {
+    public Nutritioniste(String nom, String prenom, String email, String passwd, String adresse, String bio, String certification, String img, Boolean IsBlocked, int IsMyClient) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -60,8 +65,8 @@ public class Nutritioniste {
         this.img = img;
         this.IsBlocked = IsBlocked;
         this.IsMyClient = IsMyClient;
-   
-}
+
+    }
 
     public void setIsBlocked(Boolean IsBlocked) {
         this.IsBlocked = IsBlocked;
@@ -79,7 +84,7 @@ public class Nutritioniste {
         return IsMyClient;
     }
 
-public void setImg(String img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
@@ -152,7 +157,7 @@ public void setImg(String img) {
     }
 
     @Override
-        public String toString() {
+    public String toString() {
         return "Nutritioniste{" + "nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", certification=" + certification + '}';
     }
 

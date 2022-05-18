@@ -46,7 +46,7 @@ public class ServiceReclamation {
         System.out.println(r);
         System.out.println("********");
        //String url = Statics.BASE_URL + "create?name=" + t.getName() + "&status=" + t.getStatus();
-       String url = Statics.BASE_URL + "reclamations/add";
+       String url = Statics.BASE_URL + "reclam/add";
     
        req.setUrl(url);
        req.setPost(false);
@@ -98,7 +98,7 @@ public class ServiceReclamation {
     public ArrayList<Reclamations> getAllReclamations(){
         req = new ConnectionRequest();
         //String url = Statics.BASE_URL+"/tasks/";
-        String url = Statics.BASE_URL+"reclamations/liste";
+        String url = Statics.BASE_URL+"reclam/liste";
         System.out.println("===>"+url);
         req.setUrl(url);
         req.setPost(false);
@@ -117,7 +117,7 @@ public class ServiceReclamation {
       public boolean edit(Reclamations reclamation) {
 
         req = new ConnectionRequest();
-        String url = Statics.BASE_URL+"reclamations/edit";
+        String url = Statics.BASE_URL+"reclam/edit";
         req.setHttpMethod("POST");
         
         req.setUrl(url);
@@ -147,7 +147,7 @@ public class ServiceReclamation {
     }
       public int delete(int reclamationId) {
         req = new ConnectionRequest();
-        req.setUrl(Statics.BASE_URL + "reclamations/delete");
+        req.setUrl(Statics.BASE_URL + "reclam/delete");
         req.setHttpMethod("POST");
         req.addArgument("id", String.valueOf(reclamationId));
 

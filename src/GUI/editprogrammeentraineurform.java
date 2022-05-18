@@ -15,7 +15,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BoxLayout;
-import com.mycompany.myapp.entities.programmeentraineur;
+import entity.programmeentraineur;
 import services.serviceprogrammeentraineur;
 
 /**

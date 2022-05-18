@@ -23,6 +23,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import entity.Admin;
 import entity.Client;
+import entity.Entraineur;
+import entity.Nutritioniste;
 import java.io.IOException;
 import services.Signin;
 
@@ -63,8 +65,11 @@ public class Login extends com.codename1.ui.Form {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if ((tfLogin.getText() != "") && (tfPwd.getText() != "")) {
+
                     Admin a = new Admin(tfLogin.getText(), tfPwd.getText());
                     Client c = new Client(tfLogin.getText(), tfPwd.getText());
+                    Entraineur e = new Entraineur(tfLogin.getText(), tfPwd.getText());
+                    Nutritioniste n = new Nutritioniste(tfLogin.getText(), tfPwd.getText());
 
                     if (Signin.getInstance().signinAdmin(a) == true) {
                         Dialog.show("Success", "Welcome " + tfLogin.getText(), new Command("OK"));
@@ -76,12 +81,19 @@ public class Login extends com.codename1.ui.Form {
                         ClientHOME ch = new ClientHOME();
                         ch.show();
                     }
+                    else if (Signin.getInstance().signinCoach(e) == true) {
+                        Dialog.show("Success", "Welcome " + tfLogin.getText(), new Command("OK"));
+                        CoachHOME co = new CoachHOME();
+                        co.show();
+                    }
+                    else if (Signin.getInstance().signinNutri(n) == true) {
+                        Dialog.show("Success", "Welcome " + tfLogin.getText(), new Command("OK"));
+                        NutriHOME nh = new NutriHOME();
+                        nh.show();
+                    }
                     else {
                         Dialog.show("Login failed ", " Either your banned or password incorrect .. please try again", new Command("OK"));
                     }
-//    else {
-//                        Dialog.show("Error", "Login failed please try again", new Command("OK"));
-//                    }
                 }
                 else {
                     ToastBar.showErrorMessage("Fill all blanks", 20);
@@ -114,7 +126,7 @@ public class Login extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////////////////////////////////////////////////////////////////////////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

@@ -64,7 +64,8 @@ public class AlimentService {
         try {
             cr.setDisposeOnCompletion(new InfiniteProgress().showInfiniteBlocking());
             NetworkManager.getInstance().addToQueueAndWait(cr);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -79,18 +80,65 @@ public class AlimentService {
             List<Map<String, Object>> list = (List<Map<String, Object>>) parsedJson.get("root");
 
             for (Map<String, Object> obj : list) {
-                Aliment aliment = new Aliment(
-                        (int) Float.parseFloat(obj.get("idAliment").toString()),
-                        (String) obj.get("nom"),
-                        (String) obj.get("type"),
-                        (String) obj.get("image"),
-                        (int) Float.parseFloat(obj.get("calories").toString()),
-                        (String) obj.get("description")
-                );
+                Aliment aliment = new Aliment();
+//                        (int) Float.parseFloat(obj.get("idAliment").toString()),
+//                        (String) obj.get("nom"),
+//                        (String) obj.get("type"),
+//                        (String) obj.get("image"),
+//                        (int) Float.parseFloat(obj.get("calories").toString()),
+//                        (String) obj.get("description")
+                //);
+                float idAliment = Float.parseFloat(obj.get("idAliment").toString());
+//                float idAliment = obj.get("idAliment").toString();
+                String nom = obj.get("nom").toString();
+                String type = obj.get("type").toString();
+                String img = obj.get("image").toString();
+                String desc = obj.get("description").toString();
 
+                float calories = Float.parseFloat(obj.get("calories").toString());
+
+                aliment.setIdAliment((int) idAliment);
+
+                if (obj.get("idAliment") == null) {
+                    aliment.setIdAliment(0);
+                }
+                else {
+                    aliment.setIdAliment((int) idAliment);
+                }
+                if (obj.get("nom") == null) {
+                    aliment.setNom("null");
+                }
+                else {
+                    aliment.setNom(nom);
+                }
+                if (obj.get("type") == null) {
+                    aliment.setType("null");
+                }
+                else {
+                    aliment.setType(type);
+                }
+                if (obj.get("image") == null) {
+                    aliment.setImage("null");
+                }
+                else {
+                    aliment.setImage(img);
+                }
+                if (obj.get("description") == null) {
+                    aliment.setDescription("null");
+                }
+                else {
+                    aliment.setDescription(desc);
+                }
+                if (obj.get("calories") == null) {
+                    aliment.setCalories(0);
+                }
+                else {
+                    aliment.setCalories((int) calories);
+                }
                 listAliment.add(aliment);
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return listAliment;
@@ -103,40 +151,40 @@ public class AlimentService {
     public int edit(Aliment aliment, boolean imageEdited) {
         return manage(aliment, true, imageEdited);
     }
-    
+
     public int manage(Aliment aliment, boolean isEdit, boolean imageEdited) {
-        
+
         MultipartRequest cr = new MultipartRequest();
         cr.setFilename("file", "Aliment.jpg");
 
-        
         cr.setHttpMethod("POST");
         if (isEdit) {
-            cr.setUrl(Statics.BASE_URL+ "aliment/edit");
+            cr.setUrl(Statics.BASE_URL + "aliment/edit");
             cr.addArgumentNoEncoding("idAliment", String.valueOf(aliment.getIdAliment()));
-        } else {
+        }
+        else {
             cr.setUrl(Statics.BASE_URL + "mobile/aliment/add");
         }
 
         if (imageEdited) {
             try {
                 cr.addData("file", aliment.getImage(), "image/jpeg");
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
+        }
+        else {
             cr.addArgumentNoEncoding("image", aliment.getImage());
         }
 
         cr.addArgumentNoEncoding("nom", aliment.getNom());
-        
+
         cr.addArgumentNoEncoding("type", aliment.getType());
         cr.addArgumentNoEncoding("image", aliment.getImage());
-          cr.addArgumentNoEncoding("calories", String.valueOf(aliment.getCalories()));
+        cr.addArgumentNoEncoding("calories", String.valueOf(aliment.getCalories()));
         cr.addArgumentNoEncoding("description", aliment.getDescription());
-        
 
-        
         cr.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
@@ -147,12 +195,12 @@ public class AlimentService {
         try {
             cr.setDisposeOnCompletion(new InfiniteProgress().showInfiniteBlocking());
             NetworkManager.getInstance().addToQueueAndWait(cr);
-        } catch (Exception ignored) {
+        }
+        catch (Exception ignored) {
 
         }
         return resultCode;
     }
-
 
     public int delete(int IdAliment) {
         cr = new ConnectionRequest();
@@ -170,7 +218,8 @@ public class AlimentService {
         try {
             cr.setDisposeOnCompletion(new InfiniteProgress().showInfiniteBlocking());
             NetworkManager.getInstance().addToQueueAndWait(cr);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         return cr.getResponseCode();

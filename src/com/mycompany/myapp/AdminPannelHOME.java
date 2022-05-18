@@ -55,18 +55,18 @@ public class AdminPannelHOME extends com.codename1.ui.Form {
                 ;
         });
         
-                   HomeForm h = new HomeForm();
+         HomeForm h = new HomeForm();
         HomeFormProduit hp = new HomeFormProduit();
         AdminUserListForm adminuser = new AdminUserListForm();
-        
-        current.getToolbar().addMaterialCommandToSideMenu("Admin panel ", FontImage.MATERIAL_ADMIN_PANEL_SETTINGS , new ActionListener() {
+
+        current.getToolbar().addMaterialCommandToSideMenu("Admin panel ", FontImage.MATERIAL_ADMIN_PANEL_SETTINGS, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 adminuser.show();
             }
         });
 
-        current.getToolbar().addMaterialCommandToSideMenu("Manage feedbacks",  FontImage.MATERIAL_REVIEWS, new ActionListener() {
+        current.getToolbar().addMaterialCommandToSideMenu("Manage feedbacks", FontImage.MATERIAL_REVIEWS, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 h.show();
@@ -85,7 +85,7 @@ public class AdminPannelHOME extends com.codename1.ui.Form {
         initGuiBuilderComponents(resourceObjectInstance);
     }
 
-//////////////////-- DON'T EDIT BELOW THIS LINE!!!
+////////////////////-- DON'T EDIT BELOW THIS LINE!!!
 
 
 // <editor-fold defaultstate="collapsed" desc="Generated Code">                          

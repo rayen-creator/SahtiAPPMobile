@@ -12,7 +12,7 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
-import com.mycompany.myapp.entities.programmeentraineur;
+import entity.programmeentraineur;
 import utils.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,18 +65,18 @@ public class serviceprogrammeentraineur {
         return resultOK;
     }
 
-        public ArrayList<programmeentraineur> parseprogrammeentraineur(String jsonText){
+    public ArrayList<programmeentraineur> parseprogrammeentraineur(String jsonText) {
         try {
-            programmeentraineurs=new ArrayList<>();
+            programmeentraineurs = new ArrayList<>();
             JSONParser j = new JSONParser();
-            Map<String,Object> tasksListJson = 
-               j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-            
-            List<Map<String,Object>> list = (List<Map<String,Object>>)tasksListJson.get("root");
-            for(Map<String,Object> obj : list){
+            Map<String, Object> tasksListJson
+                    = j.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> obj : list) {
                 programmeentraineur r = new programmeentraineur();
                 float id = Float.parseFloat(obj.get("id").toString());
-                r.setId((int)id);
+                r.setId((int) id);
                 r.setIdexercice(((obj.get("idexercice").toString())));
                 r.setNompack(((obj.get("nompack").toString())));
                 r.setType(((obj.get("type").toString())));
@@ -86,19 +86,19 @@ public class serviceprogrammeentraineur {
 //                    r.setTitre(obj.get("titre").toString());
                 programmeentraineurs.add(r);
             }
-            
-            
-        } catch (IOException ex) {
-            
+
+        }
+        catch (IOException ex) {
+
         }
         return programmeentraineurs;
     }
-    
-    public ArrayList<programmeentraineur> getAllprogrammeentraineur(){
+
+    public ArrayList<programmeentraineur> getAllprogrammeentraineur() {
         req = new ConnectionRequest();
         //String url = Statics.BASE_URL+"/tasks/";
-        String url = Statics.BASE_URL+"listprogrammeentraineurjson";
-        System.out.println("===>"+url);
+        String url = Statics.BASE_URL + "listprogrammeentraineurjson";
+        System.out.println("===>" + url);
         req.setUrl(url);
         req.setPost(false);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -111,16 +111,16 @@ public class serviceprogrammeentraineur {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return programmeentraineurs;
     }
-    
-        public boolean edit(programmeentraineur programmeentraineur) {
+
+    public boolean edit(programmeentraineur programmeentraineur) {
 
         req = new ConnectionRequest();
-        String url = Statics.BASE_URL+"editprogrammeentraineurjson";
+        String url = Statics.BASE_URL + "editprogrammeentraineurjson";
         req.setHttpMethod("POST");
-        
+
         req.setUrl(url);
         req.addArgument("id", String.valueOf(programmeentraineur.getId()));
-      
+
         //cr.addArgument("date", new SimpleDateFormat("dd-MM-yyyy").format(reclamation.getDate()));
         req.addArgument("idexercice", programmeentraineur.getIdexercice());
         req.addArgument("nompack", programmeentraineur.getNompack());
@@ -134,33 +134,48 @@ public class serviceprogrammeentraineur {
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-        /*try {
-            cr.setDisposeOnCompletion(new InfiniteProgress().showInfiniteBlocking());
-            NetworkManager.getInstance().addToQueueAndWait(cr);
-        } catch (Exception ignored) {
-
-        }*/
+        /*
+         * try { cr.setDisposeOnCompletion(new
+         * InfiniteProgress().showInfiniteBlocking());
+         * NetworkManager.getInstance().addToQueueAndWait(cr); } catch
+         * (Exception ignored) {
+         *
+         * }
+         */
         return resultCode;
     }
-      public int delete(int id) {
+
+    public boolean delete(int id) {
         req = new ConnectionRequest();
-        req.setUrl(Statics.BASE_URL + "deleteprogrammeentraineurjson");
-        req.setHttpMethod("POST");
-        req.addArgument("id", String.valueOf(id));
+        req.setUrl(Statics.BASE_URL + "deleteprogrammeentraineurjson?id=" + id);
+//        req.setHttpMethod("POST");
+//        req.addArgument("id", String.valueOf(id));
 
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200;
                 req.removeResponseListener(this);
+                System.out.println("program deleted successfully ");
+
             }
         });
-
-        try {
-            req.setDisposeOnCompletion(new InfiniteProgress().showInfiniteBlocking());
-            NetworkManager.getInstance().addToQueueAndWait(req);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return req.getResponseCode();
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
     }
+//        req.addResponseListener(new ActionListener<NetworkEvent>() {
+//            @Override
+//            public void actionPerformed(NetworkEvent evt) {
+//                req.removeResponseListener(this);
+//            }
+//        });
+//
+//        try {
+//            req.setDisposeOnCompletion(new InfiniteProgress().showInfiniteBlocking());
+//            NetworkManager.getInstance().addToQueueAndWait(req);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return req.getResponseCode();
+
 }

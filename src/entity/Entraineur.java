@@ -28,8 +28,13 @@ public class Entraineur {
     public Entraineur() {
 
     }
-    
-        public Entraineur(String nom, String prenom, String email, String passwd, String adresse, String bio, String certification) {
+
+    public Entraineur(String email, String passwd) {
+        this.email = email;
+        this.passwd = passwd;
+    }
+
+    public Entraineur(String nom, String prenom, String email, String passwd, String adresse, String bio, String certification) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
